@@ -4,7 +4,7 @@
   "description": "Fake API for development purpose.",
   "main": "src/index.js",
   "scripts": {
-    "dev": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "format:check": "prettier --check 'src/**/*.{js,ts}'",
     "format": "prettier --write 'src/**/*.{ts,js}'",
     "lint": "eslint src/**/*.js"
@@ -33,6 +33,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.22",
     "prettier": "2.8.7"
   }
 }
