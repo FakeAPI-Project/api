@@ -7,7 +7,8 @@
     "dev": "nodemon src/index.js",
     "format:check": "prettier --check 'src/**/*.{js,ts}'",
     "format": "prettier --write 'src/**/*.{ts,js}'",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint src/**/*.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22",
     "prettier": "2.8.7"
   }
