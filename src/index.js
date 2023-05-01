@@ -1,6 +1,4 @@
-const express = require('express');
-
-const app = express();
+const app = require('./server');
 
 app.get('/', (req, res) =>
   res.json({
