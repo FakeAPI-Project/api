@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 const router = require('./v1/routes/index');
 
 const app = express();
@@ -15,6 +16,9 @@ app.use(bodyParser.json());
 // CORS config
 // cors: Allows all cors requests from any domain
 app.use(cors());
+
+// Helmet config
+app.use(helmet());
 
 // Routes SetUp
 app.use('/v1', router);
