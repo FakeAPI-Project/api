@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "db:migrate": "sequelize-cli db:migrate",
+    "db:seed": "sequelize-cli db:seed:all",
     "dev": "nodemon src/index.js",
     "format:check": "prettier --check 'src/**/*.{js,ts}'",
     "format": "prettier --write 'src/**/*.{ts,js}'",
@@ -28,6 +29,7 @@
   },
   "homepage": "https://github.com/FakeAPI-Project/fakeapi-api#readme",
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
