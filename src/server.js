@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const router = require('./v1/routes/index');
 
 const app = express();
@@ -9,7 +10,11 @@ const app = express();
 // urlencoded.extended: If false, uses querystring, otherwise, it uses qs
 // json: Analyse data sended by using JSON format
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
+// CORS config
+// cors: Allows all cors requests from any domain
+app.use(cors());
 
 // Routes SetUp
 app.use('/v1', router);
