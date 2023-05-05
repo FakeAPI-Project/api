@@ -7,10 +7,8 @@ const USERS_PER_PAGE = 10;
 // GET v1/user
 const index = async (req, res) => {
   const currentPage = req.query.page ? +req.query.page : 1;
-  const count = await User.count();
-  const pages = Math.ceil(count / USERS_PER_PAGE);
 
-  const next = currentPage < pages ? getNextUrl(req, currentPage) : null;
+  const next = currentPage < req.extra.pages ? getNextUrl(req, currentPage) : null;
   const prev = currentPage > 1 ? getPrevUrl(req, currentPage) : null;
 
   const users = (await User.findAll({
@@ -24,8 +22,8 @@ const index = async (req, res) => {
   res.status(httpCodes.OK)
     .json({
       status: 'ok',
-      count,
-      pages,
+      count: req.extra.count,
+      pages: req.extra.pages,
       currentPage,
       next,
       prev,
