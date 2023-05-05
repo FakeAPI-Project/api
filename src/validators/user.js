@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
-const httpCodes = require('../../constants/httpCodes');
-const { User } = require('../../db/models/index');
+const httpCodes = require('../constants/httpCodes');
+const { User } = require('../db/models/index');
 
 const USERS_PER_PAGE = 10;
 

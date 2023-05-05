@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
-const router = require('./v1/routes/index');
+const router = require('./routes/index');
 
 const app = express();
 
@@ -21,6 +21,6 @@ app.use(cors());
 app.use(helmet());
 
 // Routes SetUp
-app.use('/v1', router);
+app.use('/', router);
 
 module.exports = app;

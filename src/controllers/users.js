@@ -1,5 +1,5 @@
-const httpCodes = require('../../constants/httpCodes');
-const { User } = require('../../db/models/index');
+const httpCodes = require('../constants/httpCodes');
+const { User } = require('../db/models/index');
 const { getNextUrl, getPrevUrl, getIndividualUrl } = require('../helpers/api');
 
 const USERS_PER_PAGE = 10;
