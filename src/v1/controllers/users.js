@@ -13,7 +13,10 @@ const index = async (req, res) => {
   const next = currentPage < pages ? getNextUrl(req, currentPage) : null;
   const prev = currentPage > 1 ? getPrevUrl(req, currentPage) : null;
 
-  const users = await User.findAll({ limit: USERS_PER_PAGE, offset: (currentPage - 1) * USERS_PER_PAGE });
+  const users = await User.findAll({
+    limit: USERS_PER_PAGE,
+    offset: (currentPage - 1) * USERS_PER_PAGE,
+  });
 
   res.status(httpCodes.OK)
     .json({
@@ -28,13 +31,25 @@ const index = async (req, res) => {
 };
 
 // GET v1/user/:id
-const show = (req, res) => {
+const show = async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+
+  if (!user) {
+    res.status(httpCodes.NOT_FOUND)
+      .json({
+        status: 'err',
+        messages: [
+          'User not found.',
+        ],
+      });
+    
+    return;
+  }
+
   res.status(httpCodes.OK)
     .json({
       status: 'ok',
-      data: {
-        message: 'Get one user',
-      },
+      data: user,
     });
 };
 
