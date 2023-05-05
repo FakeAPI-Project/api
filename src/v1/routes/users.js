@@ -1,5 +1,5 @@
 const express = require('express');
-const { query } = require('express-validator');
+const { query, param } = require('express-validator');
 const { index, show, store, update, destroy } = require('../controllers/users');
 const { existPageNumber, validate } = require('../validators/user');
 
@@ -11,7 +11,10 @@ router.get('/', [
   validate,
 ], index);
 
-router.get('/:id', show);
+router.get('/:id', [
+  param('id', 'Id is not valid.').isNumeric(),
+  validate,
+], show);
 router.post('/', store);
 router.put('/:id', update);
 router.delete('/:id', destroy);
