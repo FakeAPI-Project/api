@@ -1,6 +1,6 @@
 const httpCodes = require('../../constants/httpCodes');
 const { User } = require('../../db/models/index');
-const { getNextUrl, getPrevUrl } = require('../helpers/api');
+const { getNextUrl, getPrevUrl, getIndividualUrl } = require('../helpers/api');
 
 const USERS_PER_PAGE = 10;
 
@@ -13,9 +13,12 @@ const index = async (req, res) => {
   const next = currentPage < pages ? getNextUrl(req, currentPage) : null;
   const prev = currentPage > 1 ? getPrevUrl(req, currentPage) : null;
 
-  const users = await User.findAll({
+  const users = (await User.findAll({
     limit: USERS_PER_PAGE,
     offset: (currentPage - 1) * USERS_PER_PAGE,
+  })).map(user => {
+    const newUser = {...user.dataValues, url: getIndividualUrl(req, user)};
+    return newUser;
   });
 
   res.status(httpCodes.OK)

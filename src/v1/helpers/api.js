@@ -1,16 +1,13 @@
-const getNextUrl = (req, currentPage) => {
-  const protocol = req.secure ? 'https://' : 'http://';
+const getProtocol = (req) => req.secure ? 'https://' : 'http://';
 
-  return `${protocol}${req.headers.host}${req.baseUrl}?page=${currentPage + 1}`;
-};
+const getNextUrl = (req, currentPage) => `${getProtocol(req)}${req.headers.host}${req.baseUrl}?page=${currentPage + 1}`;
 
-const getPrevUrl = (req, currentPage) => {
-  const protocol = req.secure ? 'https://' : 'http://';
+const getPrevUrl = (req, currentPage) => `${getProtocol(req)}${req.headers.host}${req.baseUrl}?page=${currentPage - 1}`;
 
-  return `${protocol}${req.headers.host}${req.baseUrl}?page=${currentPage - 1}`;
-};
+const getIndividualUrl = (req, modelInstance) => `${getProtocol(req)}${req.headers.host}${req.baseUrl}/${modelInstance.id}`;
 
 module.exports = {
+  getIndividualUrl,
   getNextUrl,
   getPrevUrl,
 };
