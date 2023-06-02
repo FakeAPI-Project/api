@@ -17,7 +17,7 @@ module.exports = {
 
     for (let i = 0; i < 20; i++) {
       categories.push({
-        name: faker.commerce.department(),
+        name: faker.commerce.productAdjective(),
         createdAt: new Date(),
         updatedAt: new Date(),
       });
