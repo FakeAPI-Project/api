@@ -10,8 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     // eslint-disable-next-line
     static associate(models) {
       // define association here
-      ShoppingProduct.belongsTo(models.ShoppingCategory);
-      ShoppingProduct.belongsTo(models.ShoppingVendor);
+      ShoppingProduct.belongsTo(models.ShoppingCategory, {
+        foreignKey: 'shoppingCategoryId',
+        as: 'ShoppingCategory',
+      });
+
+      ShoppingProduct.belongsTo(models.ShoppingVendor, {
+        foreignKey: 'shoppingVendorId',
+        as: 'ShoppingVendor',
+      });
     }
   }
 

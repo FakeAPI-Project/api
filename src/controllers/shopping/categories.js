@@ -11,13 +11,28 @@ const index = async (req, res) => {
   const next = currentPage < req.extra.pages ? getNextUrl(req, currentPage) : null;
   const prev = currentPage > 1 ? getPrevUrl(req, currentPage) : null;
 
-  const categories = (await ShoppingCategory.findAll({
+  const categoriesInstances = await ShoppingCategory.findAll({
     limit: CATEGORIES_PER_PAGE,
     offset: (currentPage - 1) * CATEGORIES_PER_PAGE,
-  })).map(category => {
-    const newCategory = {...category.dataValues, url: getIndividualUrl(req, category)};
-    return newCategory;
   });
+
+  const categories = await Promise.all(categoriesInstances.map(async (category) => {
+    const productsInstances = await category.getShoppingProduct();
+    const productsLinks = [];
+
+    for (let i = 0; i < productsInstances.length; i++) {
+      productsLinks.push(getIndividualUrl(req, productsInstances[i], {
+        baseUrl: '/shopping/product'
+      }));
+    }
+
+    const newCategory = {
+      ...category.dataValues,
+      products: productsLinks,
+      url: getIndividualUrl(req, category),
+    };
+    return newCategory;
+  }))
 
   res.status(httpCodes.OK)
     .json({
@@ -33,9 +48,9 @@ const index = async (req, res) => {
 
 // GET shopping/category/:id
 const show = async (req, res) => {
-  const category = await ShoppingCategory.findByPk(req.params.id);
+  const categoryInstance = await ShoppingCategory.findByPk(req.params.id);
 
-  if (!category) {
+  if (!categoryInstance) {
     res.status(httpCodes.NOT_FOUND)
       .json({
         status: 'err',
@@ -46,6 +61,16 @@ const show = async (req, res) => {
     
     return;
   }
+
+  const productsInstances = await categoryInstance.getShoppingProduct();
+  const productsLinks = [];
+  for (let i = 0; i < productsInstances.length; i++) {
+    productsLinks.push(getIndividualUrl(req, productsInstances[i], {
+      baseUrl: '/shopping/product'
+    }));
+  }
+
+  const category = {...categoryInstance.dataValues, products: productsLinks};
 
   res.status(httpCodes.OK)
     .json({

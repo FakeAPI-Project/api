@@ -14,7 +14,7 @@ const index = async (req, res) => {
   const vendorsInstances = await ShoppingVendor.findAll({
     limit: VENDORS_PER_PAGE,
     offset: (currentPage - 1) * VENDORS_PER_PAGE,
-  })
+  });
   
   const vendors = await Promise.all(vendorsInstances.map(async (vendor) => {
     const productsInstances = await vendor.getShoppingProduct();
