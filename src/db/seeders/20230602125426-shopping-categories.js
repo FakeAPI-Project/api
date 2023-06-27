@@ -15,12 +15,17 @@ module.exports = {
     */
     const categories = [];
 
-    for (let i = 0; i < 20; i++) {
-      categories.push({
-        name: faker.commerce.productAdjective(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+    while (categories.length < 20) {
+      const categoryName = faker.commerce.productAdjective();
+      const alreadyExists = categories.filter((category) => category.name === categoryName).length;
+
+      if (!alreadyExists) {
+        categories.push({
+          name: categoryName,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+      }
     }
 
     return queryInterface.bulkInsert('shopping_categories', categories);
