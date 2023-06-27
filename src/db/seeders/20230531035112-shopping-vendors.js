@@ -17,7 +17,11 @@ module.exports = {
 
     for (let i = 0; i < 20; i++) {
       const vendorName = faker.company.name();
-      const contactEmail = faker.internet.email(vendorName, null, 'shopping-api.com').toLowerCase();
+      const contactEmail = faker.internet.email({
+        firstName: vendorName,
+        lastName: null,
+        provider: 'shopping-api.com',
+      }).toLowerCase();
       const phoneNumber = faker.phone.number('###-###-####');
 
       vendors.push({
