@@ -11,13 +11,28 @@ const index = async (req, res) => {
   const next = currentPage < req.extra.pages ? getNextUrl(req, currentPage) : null;
   const prev = currentPage > 1 ? getPrevUrl(req, currentPage) : null;
 
-  const vendors = (await ShoppingVendor.findAll({
+  const vendorsInstances = await ShoppingVendor.findAll({
     limit: VENDORS_PER_PAGE,
     offset: (currentPage - 1) * VENDORS_PER_PAGE,
-  })).map(vendor => {
-    const newVendor = {...vendor.dataValues, url: getIndividualUrl(req, vendor)};
+  })
+  
+  const vendors = await Promise.all(vendorsInstances.map(async (vendor) => {
+    const productsInstances = await vendor.getShoppingProduct();
+    const productsLinks = [];
+
+    for (let i = 0; i < productsInstances.length; i++) {
+      productsLinks.push(getIndividualUrl(req, productsInstances[i], {
+        baseUrl: '/shopping/product'
+      }));
+    }
+
+    const newVendor = {
+      ...vendor.dataValues,
+      products: productsLinks,
+      url: getIndividualUrl(req, vendor)
+    };
     return newVendor;
-  });
+  }));
 
   res.status(httpCodes.OK)
     .json({
@@ -33,9 +48,9 @@ const index = async (req, res) => {
 
 // GET shopping/vendor/:id
 const show = async (req, res) => {
-  const vendor = await ShoppingVendor.findByPk(req.params.id);
-
-  if (!vendor) {
+  const vendorInstace = await ShoppingVendor.findByPk(req.params.id);
+  
+  if (!vendorInstace) {
     res.status(httpCodes.NOT_FOUND)
       .json({
         status: 'err',
@@ -46,6 +61,16 @@ const show = async (req, res) => {
     
     return;
   }
+
+  const productsInstances = await vendorInstace.getShoppingProduct();
+  const productsLinks = [];
+  for (let i = 0; i < productsInstances.length; i++) {
+    productsLinks.push(getIndividualUrl(req, productsInstances[i], {
+      baseUrl: '/shopping/product'
+    }));
+  }
+
+  const vendor = {...vendorInstace.dataValues, products: productsLinks};
 
   res.status(httpCodes.OK)
     .json({
