@@ -11,20 +11,23 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       ShoppingVendor.hasMany(models.ShoppingProduct, {
-        as: 'ShoppingProduct'
+        as: 'ShoppingProduct',
       });
     }
   }
-  ShoppingVendor.init({
-    name: DataTypes.STRING,
-    contactEmail: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING,
-    isActive: DataTypes.BOOLEAN,
-  }, {
-    sequelize,
-    modelName: 'ShoppingVendor',
-    tableName: 'shopping_vendors',
-  });
+  ShoppingVendor.init(
+    {
+      name: DataTypes.STRING,
+      contactEmail: DataTypes.STRING,
+      phoneNumber: DataTypes.STRING,
+      isActive: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: 'ShoppingVendor',
+      tableName: 'shopping_vendors',
+    }
+  );
 
   return ShoppingVendor;
 };

@@ -36,17 +36,17 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
 
   // eslint-disable-next-line
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('shopping_products');
-  }
+  },
 };

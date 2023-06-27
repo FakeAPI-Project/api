@@ -4,7 +4,7 @@ const { getRandomNumberBetween } = require('rndjs');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   // eslint-disable-next-line
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -13,7 +13,7 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
     const products = [];
     const categoriesIds = Array.from({ length: 20 }, (_, i) => i + 1);
     const vendorsIds = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -39,7 +39,7 @@ module.exports = {
   },
 
   // eslint-disable-next-line
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -47,5 +47,5 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     return queryInterface.bulkDelete('shopping_products', null, {});
-  }
+  },
 };

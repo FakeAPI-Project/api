@@ -1,8 +1,14 @@
-const getProtocol = (req) => req.secure ? 'https://' : 'http://';
+const getProtocol = (req) => (req.secure ? 'https://' : 'http://');
 
-const getNextUrl = (req, currentPage) => `${getProtocol(req)}${req.headers.host}${req.baseUrl}?page=${currentPage + 1}`;
+const getNextUrl = (req, currentPage) =>
+  `${getProtocol(req)}${req.headers.host}${req.baseUrl}?page=${
+    currentPage + 1
+  }`;
 
-const getPrevUrl = (req, currentPage) => `${getProtocol(req)}${req.headers.host}${req.baseUrl}?page=${currentPage - 1}`;
+const getPrevUrl = (req, currentPage) =>
+  `${getProtocol(req)}${req.headers.host}${req.baseUrl}?page=${
+    currentPage - 1
+  }`;
 
 const getIndividualUrl = (req, modelInstance, override = {}) => {
   const host = override.host ? override.host : req.headers.host;

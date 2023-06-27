@@ -8,7 +8,7 @@ const existPageNumber = async (value, { req }) => {
   const count = await ShoppingVendor.count();
   const pages = Math.ceil(count / VENDORS_PER_PAGE);
 
-  if (typeof(value) === 'number' && (value < 1 || value > pages)) {
+  if (typeof value === 'number' && (value < 1 || value > pages)) {
     throw new Error('No records here.');
   }
 
@@ -22,11 +22,10 @@ const validate = (req, res, next) => {
   const result = validationResult(req);
 
   if (!result.isEmpty()) {
-    res.status(httpCodes.BAD_REQUEST)
-      .json({
-        status: 'err',
-        messages: result.array().map(err => err.msg),
-      });
+    res.status(httpCodes.BAD_REQUEST).json({
+      status: 'err',
+      messages: result.array().map((err) => err.msg),
+    });
 
     return;
   }

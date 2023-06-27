@@ -11,23 +11,27 @@ const db = {};
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: config.storage
+  storage: config.storage,
 });
 
 fs.readdirSync(__dirname)
-  .filter(file => (
+  .filter(
+    (file) =>
       file.indexOf('.') !== 0 &&
       file !== basename &&
       file.slice(-3) === '.js' &&
       file.indexOf('.test.js') === -1
-  ))
-  .forEach(file => {
+  )
+  .forEach((file) => {
     // eslint-disable-next-line
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    const model = require(path.join(__dirname, file))(
+      sequelize,
+      Sequelize.DataTypes
+    );
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }

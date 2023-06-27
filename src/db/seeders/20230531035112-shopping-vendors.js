@@ -3,7 +3,7 @@ const { faker } = require('@faker-js/faker');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   // eslint-disable-next-line
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -12,16 +12,18 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
     const vendors = [];
 
     for (let i = 0; i < 20; i++) {
       const vendorName = faker.company.name();
-      const contactEmail = faker.internet.email({
-        firstName: vendorName,
-        lastName: null,
-        provider: 'shopping-api.com',
-      }).toLowerCase();
+      const contactEmail = faker.internet
+        .email({
+          firstName: vendorName,
+          lastName: null,
+          provider: 'shopping-api.com',
+        })
+        .toLowerCase();
       const phoneNumber = faker.phone.number('###-###-####');
 
       vendors.push({
@@ -38,7 +40,7 @@ module.exports = {
   },
 
   // eslint-disable-next-line
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -46,5 +48,5 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     return queryInterface.bulkDelete('shopping_vendors', null, {});
-  }
+  },
 };

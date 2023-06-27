@@ -1,4 +1,4 @@
-const { Model} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class ShoppingProduct extends Model {
@@ -22,12 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  ShoppingProduct.init({
-    name: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'ShoppingProduct',
-    tableName: 'shopping_products',
-  });
+  ShoppingProduct.init(
+    {
+      name: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'ShoppingProduct',
+      tableName: 'shopping_products',
+    }
+  );
   return ShoppingProduct;
 };
