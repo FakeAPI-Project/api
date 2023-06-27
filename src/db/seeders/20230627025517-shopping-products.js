@@ -28,8 +28,8 @@ module.exports = {
         description: faker.commerce.productDescription(),
         price: faker.commerce.price(),
         stock,
-        vendorId,
-        categoryId,
+        shoppingVendorId: vendorId,
+        shoppingCategoryId: categoryId,
         createdAt: new Date(),
         updatedAt: new Date(),
       });

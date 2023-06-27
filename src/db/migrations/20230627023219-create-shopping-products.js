@@ -20,14 +20,14 @@ module.exports = {
       stock: {
         type: Sequelize.INTEGER,
       },
-      vendorId: {
+      shoppingVendorId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'shopping_vendors',
           key: 'id',
         },
       },
-      categoryId: {
+      shoppingCategoryId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'shopping_categories',
