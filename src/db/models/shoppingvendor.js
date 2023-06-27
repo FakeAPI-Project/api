@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     // eslint-disable-next-line
     static associate(models) {
       // define association here
+      ShoppingVendor.hasMany(models.ShoppingProduct, {
+        as: 'ShoppingProduct'
+      });
     }
   }
   ShoppingVendor.init({

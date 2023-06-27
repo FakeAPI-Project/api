@@ -1,7 +1,7 @@
-const { Model } = require('sequelize');
+const { Model} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class ShoppingCategory extends Model {
+  class ShoppingProduct extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,18 +10,17 @@ module.exports = (sequelize, DataTypes) => {
     // eslint-disable-next-line
     static associate(models) {
       // define association here
-      ShoppingCategory.hasMany(models.ShoppingProduct, {
-        as: 'ShoppingProduct'
-      });
+      ShoppingProduct.belongsTo(models.ShoppingCategory);
+      ShoppingProduct.belongsTo(models.ShoppingVendor);
     }
   }
 
-  ShoppingCategory.init({
+  ShoppingProduct.init({
     name: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'ShoppingCategory',
-    tableName: 'shopping_categories',
+    modelName: 'ShoppingProducts',
+    tableName: 'shopping_products',
   });
-  return ShoppingCategory;
+  return ShoppingProduct;
 };
